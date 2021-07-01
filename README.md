@@ -12,7 +12,7 @@ node app.js [filename.json]
 
 ## Test
 
-Unit tests could be run by:
+Unit tests could be run with command:
 
 ```javascript
 npm test
