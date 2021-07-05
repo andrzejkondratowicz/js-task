@@ -1,6 +1,5 @@
 const HTTPClient = require('../../client/HTTPClient');
 
-// endpoints
 const BACKEND_URL_ENDPOINT = 'https://private-00d723-paysera.apiary-proxy.com/';
 
 const CASH_IN_ENDPOINT = '/cash-in';

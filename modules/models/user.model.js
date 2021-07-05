@@ -21,7 +21,7 @@ class UserModel {
     const operationType = payload.action.type;
 
     if (operationType === operations.CASH_IN_OPERATION) {
-      return this.cashIn(payload);
+      return UserModel.cashIn(payload);
     }
     if (operationType === operations.CASH_OUT_OPERATION) {
       return this.cashOut(payload);
@@ -36,12 +36,12 @@ class UserModel {
       return this.cashOutForNatural(payload);
     }
     if (userType === userTypes.JURIDICAL_TYPE) {
-      return this.cashOutForJuridical(payload);
+      return UserModel.cashOutForJuridical(payload);
     }
     throw Error('User type is wrong!');
   }
 
-  cashIn({ actualFees, action }) {
+  static cashIn({ actualFees, action }) {
     const { percents, max } = actualFees.cashInFee;
 
     let result = calculateFee(action.operation.amount, percents);
@@ -73,7 +73,7 @@ class UserModel {
     return roundNumber(calculateFee(result, percents));
   }
 
-  cashOutForJuridical({ actualFees, action }) {
+  static cashOutForJuridical({ actualFees, action }) {
     const { percents, min } = actualFees.cashOutJuridicalFee;
 
     let result = calculateFee(action.operation.amount, percents);

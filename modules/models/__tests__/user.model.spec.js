@@ -84,11 +84,11 @@ describe('User model', () => {
 
   describe('.makeOperation', () => {
     it('should call .cashIn', () => {
-      jest.spyOn(user, 'cashIn');
+      jest.spyOn(UserModel, 'cashIn');
 
       user.makeOperation(cashInOperation);
 
-      expect(user.cashIn).toHaveBeenCalledTimes(1);
+      expect(UserModel.cashIn).toHaveBeenCalledTimes(1);
     });
 
     it('should call .cashOut', () => {
@@ -108,7 +108,7 @@ describe('User model', () => {
 
   describe('.cashIn', () => {
     it('should get value within limit', async () => {
-      const result = await user.cashIn(cashInOperation);
+      const result = await UserModel.cashIn(cashInOperation);
 
       expect(result).toEqual(roundNumber(
         calculateFee(
@@ -119,7 +119,7 @@ describe('User model', () => {
     });
 
     it('should get max amount', async () => {
-      const result = await user.cashIn({
+      const result = await UserModel.cashIn({
         action: {
           operation: {
             amount: 999999999999999,
@@ -144,11 +144,11 @@ describe('User model', () => {
     });
 
     it('should call .cashOutForJuridical', () => {
-      jest.spyOn(user, 'cashOutForJuridical');
+      jest.spyOn(UserModel, 'cashOutForJuridical');
 
       user.cashOut(cashOutJuridicalOperation);
 
-      expect(user.cashOutForJuridical).toHaveBeenCalledTimes(1);
+      expect(UserModel.cashOutForJuridical).toHaveBeenCalledTimes(1);
     });
 
     it('should throw an error', () => {
@@ -208,7 +208,7 @@ describe('User model', () => {
 
   describe('.cashOutForJuridical', () => {
     it('should get min amount', async () => {
-      const result = await user.cashOutForJuridical({
+      const result = await UserModel.cashOutForJuridical({
         action: {
           type: operations.CASH_OUT_OPERATION,
           user_type: userTypes.JURIDICAL_TYPE,
@@ -225,7 +225,7 @@ describe('User model', () => {
     });
 
     it('should get value within limit', async () => {
-      const result = await user.cashOutForJuridical(cashOutJuridicalOperation);
+      const result = await UserModel.cashOutForJuridical(cashOutJuridicalOperation);
 
       expect(result).toEqual(roundNumber(
         calculateFee(

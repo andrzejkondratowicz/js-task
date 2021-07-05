@@ -9,19 +9,23 @@ describe('BankSystem model', () => {
     cache = new CacheModel();
   });
 
+  afterEach(() => {
+    cache.removeCacheFile();
+  });
+
   describe('.getCache', () => {
-    it('should return undefined', () => {
-      const result = cache.getCache(testUrl);
+    it('should return undefined', async () => {
+      const result = await cache.getCache(testUrl);
 
       expect(result).toBeUndefined();
     });
   });
 
   describe('.setCache', () => {
-    it('should set value', () => {
-      cache.setCache(testUrl, testValue);
+    it('should set value', async () => {
+      await cache.setCache(testUrl, testValue);
 
-      const result = cache.getCache(testUrl);
+      const result = await cache.getCache(testUrl);
 
       expect(result).toEqual(testValue);
     });

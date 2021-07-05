@@ -1,23 +1,23 @@
 const UserModel = require('./user.model');
-const CommisionService = require('../services/commission.service');
+const CommissionService = require('../services/commission.service');
 
 class BankSystemModel {
   constructor() {
     this.usersData = {};
     this.actualFees = {};
 
-    this.commisionService = new CommisionService();
+    this.commissionService = new CommissionService();
   }
 
   async init() {
     const actualFeesData = await this.getActualFees();
-    this.actualFees = { ...actualFeesData };
+    this.actualFees = actualFeesData;
   }
 
   async getActualFees() {
-    const cashInFee = await this.commisionService.getCashInFee();
-    const cashOutNaturalFee = await this.commisionService.getCashOutNaturalFee();
-    const cashOutJuridicalFee = await this.commisionService.getCashOutJuridicalFee();
+    const cashInFee = await this.commissionService.getCashInFee();
+    const cashOutNaturalFee = await this.commissionService.getCashOutNaturalFee();
+    const cashOutJuridicalFee = await this.commissionService.getCashOutJuridicalFee();
 
     return {
       cashInFee,

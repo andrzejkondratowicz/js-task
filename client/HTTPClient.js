@@ -16,9 +16,9 @@ class HTTPClient {
     this.cacheable = true;
     this.cache = new CacheModel();
 
-    this.client.interceptors.request.use((request) => {
+    this.client.interceptors.request.use(async (request) => {
       if (request.method === GET_REQUEST_METHOD && this.cacheable) {
-        const cachedData = this.cache.getCache(request.url);
+        const cachedData = await this.cache.getCache(request.url);
 
         if (cachedData) {
           request.adapter = () => Promise.resolve({
@@ -32,12 +32,12 @@ class HTTPClient {
       return request;
     });
 
-    this.client.interceptors.response.use((response) => {
+    this.client.interceptors.response.use(async (response) => {
       if (response.config.method === GET_REQUEST_METHOD
         && this.cacheable
         && !response.isCached
       ) {
-        this.cache.setCache(response.config.url, response.data);
+        await this.cache.setCache(response.config.url, response.data);
       }
 
       return response;
