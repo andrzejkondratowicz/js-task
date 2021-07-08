@@ -1,12 +1,23 @@
 const fs = require('fs');
 
+const DEFAUL_FILENAME = 'localCache.json';
 const UTF8_ENCODE = 'utf-8';
 
 class Cache {
-  constructor() {
-    this.cacheFileName = 'localCache.json';
+  constructor(filename) {
+    this.cacheFileName = filename || DEFAUL_FILENAME;
 
-    this.updateCacheFile({});
+    this.initFile();
+  }
+
+  initFile() {
+    return new Promise((res) => {
+      fs.readFile(this.cacheFileName, async (err) => {
+        if (err) await this.updateCacheFile({});
+
+        res();
+      });
+    });
   }
 
   updateCacheFile(data) {
@@ -18,9 +29,9 @@ class Cache {
   }
 
   readCacheFile() {
-    return new Promise((res) => {
+    return new Promise((res, rej) => {
       fs.readFile(this.cacheFileName, UTF8_ENCODE, (err, data) => {
-        if (err) return console.log(err);
+        if (err) return rej(new Error(err));
 
         return res(JSON.parse(data));
       });
