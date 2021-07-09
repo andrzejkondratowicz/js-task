@@ -7,6 +7,8 @@ The application should calculate the commission fee for cash in/cash out operati
 The application accepts a path to file with data in JSON format
 
 ```javascript
+npm install
+
 node app.js [filename.json]
 ```
 

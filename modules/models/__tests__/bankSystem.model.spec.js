@@ -22,7 +22,7 @@ const mockGetCashInFee = jest.fn(() => mockCashInFee);
 const mockGetCashOutNaturalFee = jest.fn(() => mockCashOutNaturalFee);
 const mockGetCashOutJuridicalFee = jest.fn(() => mockCashOutJuridicalFee);
 
-jest.mock('../../services/commission.service', () => function CommisionService() {
+jest.mock('../../services/commission.service', () => function CommissionService() {
   return {
     getCashInFee: mockGetCashInFee,
     getCashOutNaturalFee: mockGetCashOutNaturalFee,
